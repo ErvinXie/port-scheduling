@@ -8,10 +8,10 @@ include_directories(entities)
 
 add_executable(port_scheduling
         entities/cargo.cpp
-        entities/cargo.hpp
+        entities/cargo.h
         entities/port.cpp
-        entities/port.hpp
+        entities/port.h
         entities/ship.cpp
-        entities/ship.hpp
+        entities/ship.h
         main.cpp
-        )
+        worker/worker_base.cpp worker/worker_base.h)

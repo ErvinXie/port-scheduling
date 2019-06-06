@@ -19,7 +19,15 @@ public:
     int target_store_id;
     int lift_time;
     ship* parent_ship;
-    
+
+
+    // Methods
+    cargo(int id, int targetStoreId, int liftTime);
+
+    virtual ~cargo();
+
+    // Debug Methods
     std::string get_name();
+    void info();
 };
 #endif /* cargo_hpp */

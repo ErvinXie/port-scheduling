@@ -12,23 +12,25 @@
 #include <stdio.h>
 #include <vector>
 #include <map>
-#include "cargo.hpp"
+#include <iostream>
+#include "cargo.h"
 
 class ship{
 public:
     int id;
-    int port_in_time;
-    int port_out_time;
+    int in_port_time;
+    int out_port_time;
     
-    std::vector<cargo*> cargos;
+    std::vector<cargo*> cargoes;
     
     
     
 //Computing Methods
     ship(){}
-    ship(int id,int port_in_time,int port_out_time):id(id),port_in_time(port_in_time),port_out_time(port_out_time){}
-    
-    
+    ship(int id, int portInTime, int portOutTime);
+
+    virtual ~ship();
+
     void load_cargo(cargo* tcargo);
     
     
@@ -36,7 +38,7 @@ public:
 //Debug Methods
     
     std::string get_name();
-    
+    void info();
     
 
 };
