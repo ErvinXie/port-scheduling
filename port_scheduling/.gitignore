@@ -1,3 +1,7 @@
 #xcode project file 
+
 *.xcodeproj
+
+cmake-build-debug
+.idea
 port_scheduling.xcodeproj

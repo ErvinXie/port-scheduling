@@ -31,6 +31,6 @@
 *.out
 *.app
 
-
+port_scheduling.xcodeproj
 #Xcode project file
 *.xcodeproj

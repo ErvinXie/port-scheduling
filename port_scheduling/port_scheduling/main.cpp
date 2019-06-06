@@ -7,9 +7,28 @@
 //
 
 #include <iostream>
-
+#include "port.hpp"
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+    
+    std::cout<<
+    "enter the port infomation:\n"
+    "the number of berth(es):\n"
+    "the number of lift(s):\n"
+    "the number of vichle(s):\n"
+    "thi number of store(s):\n"
+    <<std::endl;
+    int a,b,c,d;
+    std::cin>>a>>b>>c>>d;
+    port A(a,b,c,d);
+    
+    std::cout<<
+    "enter the ship infomation:\n"
+    "the number of ship(s):\n"
+    <<std::endl;
+    
+    
+    
+    
+    
     return 0;
 }
