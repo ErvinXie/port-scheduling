@@ -40,31 +40,36 @@ public:
     int vehicle_num;
     int store_num;
 
+    int transport_time;
+
     std::vector<ship *> ships;
 
     //working attributes
     std::set<ship *> ships_in_deck;
+
+    std::set<cargo *>cargoes_on_deck;
     std::set<cargo *> cargoes_in_buffer;
     std::set<cargo *> cargoes_in_store;
     std::priority_queue<request *, std::vector<request *>,request_compare> request_queue;
 
 
+
     //Methods
     port() {}
 
-    port(int berth_num, int lift_num, int vehicle_num, int store_num) : deck_num(berth_num), lift_num(lift_num),
-                                                                        vehicle_num(vehicle_num),
-                                                                        store_num(store_num) {}
+    port(int deckNum, int liftNum, int vehicleNum, int storeNum, int transportTime);
 
     virtual ~port();
 
 
     void load_ship(ship *tship);
 
-    void simulate(std::vector<ship *> &, std::vector<cargo *> &);
+    int simulate(std::vector<ship *> &, std::vector<cargo *> &,int log_level=0);
 
     //Debug Methods
     void info();
+
+    std::vector<cargo*> lift_order;
 
 };
 

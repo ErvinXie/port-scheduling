@@ -15,31 +15,32 @@
 #include <iostream>
 #include "cargo.h"
 
-class ship{
+class ship {
 public:
     int id;
     int in_port_time;
     int out_port_time;
-    
-    std::vector<cargo*> cargoes;
-    
-    
-    
+
+    std::vector<cargo *> cargoes;
+
+    int on_deck_cargoes_num=0;
 //Computing Methods
-    ship(){}
+    ship() {}
+
     ship(int id, int portInTime, int portOutTime);
 
     virtual ~ship();
 
-    void load_cargo(cargo* tcargo);
-    
-    
-    
+    void load_cargo(cargo *tcargo);
+
+
+
 //Debug Methods
-    
+
     std::string get_name();
+
     void info();
-    
+
 
 };
 

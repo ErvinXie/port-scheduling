@@ -14,10 +14,23 @@ public:
     std::vector<cargo*> cargo_rule;
 
     port* port1;
+    int best_time=0x3f3f3f3f;
 
     worker_base(port *port1);
 
+    virtual void work();
+
+    virtual void generate_method();
+
+    virtual void finish_work();
+
+
+
+
 };
+
+
+
 
 
 #endif //PORT_SCHEDULING_WORKER_BASE_H
