@@ -9,6 +9,7 @@ random_worker::random_worker(port *port1) : brute_force_worker(port1) {}
 
 void random_worker::work(long long int limit) {
     //try every possible way
+    std::cout<<"-----------random algorithm---------"<<std::endl;
     std::cout << "Total:" << limit << " ways will be tried" << std::endl;
     int now = 0;
     unsigned seed = time(nullptr);

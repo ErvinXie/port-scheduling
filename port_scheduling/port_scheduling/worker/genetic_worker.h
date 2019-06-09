@@ -8,22 +8,35 @@
 
 #include "worker_base.h"
 
-class genetic_worker : public worker_base{
+class genetic_worker : public worker_base {
 public:
 
-     std::vector<std::vector<cargo*>> group;
+    int population=1000,max_generation=100;
+    double single_cross_possibility = 0.5;
+    double double_cross_possibility = 0.4;
+    double migrant_possibility = 0;
+    double mutant_possibility = 0.05;
+
+
+    std::vector<std::vector<cargo *>> group;
+    std::vector<double> fit_score;
+    std::vector<double> fit_score_presum;
+
+
 
 
     genetic_worker(port *port1);
 
-    void work(int population,int max_generation=100);
+    void work();
 
     void finish_work() override;
 
 
 private:
 
-    void get_first_generation(int population);
+    int get_proportional_random_unit();
+    void get_fit_score();
+    void get_first_generation();
 };
 
 

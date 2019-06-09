@@ -16,6 +16,11 @@ public:
     port* port1;
     int best_time=0x3f3f3f3f;
 
+    int debug = 0;
+
+    std::vector<cargo*> best_cargo_rule;
+    std::vector<ship*> best_ship_rule;
+
     worker_base(port *port1);
 
     virtual void work();

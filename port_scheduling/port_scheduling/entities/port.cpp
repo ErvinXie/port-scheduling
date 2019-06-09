@@ -165,6 +165,7 @@ int port::simulate(std::vector<ship *> &ship_rule, std::vector<cargo *> &cargo_r
             cargo *this_cargo = (*cargoes_in_buffer.begin());
             //remove the cargo from the buffer
             cargoes_in_buffer.erase(this_cargo);
+            vehicle_num--;
             if (log_level >= 3) {
                 std::cout << "----time[" << time_now << "]\t"
                           << this_cargo->get_name()
@@ -192,7 +193,7 @@ int port::simulate(std::vector<ship *> &ship_rule, std::vector<cargo *> &cargo_r
 
                 const int back_time = arrival_time + transport_time;
                 request_queue.push(new request(back_time, [=, this]() {
-                    this->vehicle_num++;
+                    vehicle_num++;
 
                     if (log_level >= 5) {
                         std::cout << "----time[" << back_time << "]\t"

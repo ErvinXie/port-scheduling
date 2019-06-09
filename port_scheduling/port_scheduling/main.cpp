@@ -10,6 +10,8 @@
 #include <worker/greedy_worker.h>
 #include <worker/brute_force_worker.h>
 #include <worker/random_worker.h>
+#include <worker/genetic_worker.h>
+#include <worker/pso_worker.h>
 #include "entities/ship.h"
 #include "worker/worker_base.h"
 #include "port.h"
@@ -50,19 +52,42 @@ int main(int argc, const char * argv[]) {
             tship->load_cargo(new cargo(i*100+j,ts,lt));
         }
     }
-    port1->info();
+//    port1->info();
+//
+//    worker_base* workerBase = new worker_base(port1);
+//    workerBase->work();
+//
+//    greedy_worker* greedyWorker = new greedy_worker(port1);
+//    greedyWorker->work();
+//
+//    brute_force_worker* bruteForceWorker = new brute_force_worker(port1);
+//    bruteForceWorker->work(1e3);
+//
+//    random_worker* randomWorker = new random_worker(port1);
+//    randomWorker->work(1e3);
 
-    worker_base* workerBase = new worker_base(port1);
-    workerBase->work();
+    //adjustment the parameters
+    port1->transport_time=10;
 
-    greedy_worker* greedyWorker = new greedy_worker(port1);
-    greedyWorker->work();
 
-    brute_force_worker* bruteForceWorker = new brute_force_worker(port1);
-    bruteForceWorker->work(1e3);
+    //solve the problem
 
-    random_worker* randomWorker = new random_worker(port1);
-    randomWorker->work(1e5);
+    pso_worker* psoWorker = new pso_worker(port1);
+    psoWorker->population = 1000;
+    psoWorker->alpha = 1;
+    psoWorker->debug=1;
+    psoWorker->max_generation = 10000000;
+    psoWorker->work();
+    delete psoWorker;
+
+
+
+//    genetic_worker* geneticWorker = new genetic_worker(port1);
+//    geneticWorker->max_generation = 10;
+//    geneticWorker->work();
+//    delete geneticWorker;
+
+
 
 
     return 0;

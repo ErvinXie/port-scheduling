@@ -13,6 +13,8 @@ public:
     greedy_worker(port *port1);
 
     void generate_method();
+
+    void work() override;
 };
 
 

@@ -11,8 +11,6 @@
 class brute_force_worker : public worker_base {
 public:
 
-    std::vector<ship *> best_ship_rule;
-    std::vector<cargo *> best_cargo_rule;
     std::map<int, long long> time_distribute;
 
 

@@ -11,7 +11,7 @@ void brute_force_worker::work(long long limit) {
     for (long long i = 1; i <= cargo_rule.size(); i++) {
         total_permutation *= i;
     }
-
+    std::cout<<"-----------permutation algorithm---------"<<std::endl;
     std::cout<<"Total:"<<limit<<" ways will be tried"<<std::endl;
     //try every possible way
     while (now<limit&&std::next_permutation(cargo_rule.begin(), cargo_rule.end())) {
@@ -45,23 +45,6 @@ void brute_force_worker::finish_work() {
     std::for_each(time_distribute.begin(),time_distribute.end(),[](std::pair<int,long long> p){
         std::cout<<"Time["<<p.first<<"]\t"<<p.second<<std::endl;
     });
-
-
-    std::cout<<"The Best TIME is "<<best_time<<std::endl;
-    std::cout<<"The best ship rule is:\n";
-    for(int i=0;i<best_ship_rule.size();i++){
-        std::cout<<best_ship_rule[i]->get_name()<<"\n";
-    }
-    std::cout<<"\n";
-    std::cout<<"The best cargo rule is:\n";
-    for(int i=0;i<best_cargo_rule.size();i++){
-        std::cout<<best_cargo_rule[i]->get_name()<<"\n";
-    }
-
-
-    std::cout<<"The best schedule is:";
-    port1->simulate(best_ship_rule,best_cargo_rule,10);
-    std::cout<<"\n";
 
     worker_base::finish_work();
 }

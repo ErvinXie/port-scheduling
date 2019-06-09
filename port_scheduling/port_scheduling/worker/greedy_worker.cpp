@@ -25,3 +25,11 @@ void greedy_worker::generate_method() {
     });
 
 }
+
+void greedy_worker::work() {
+    std::cout<<"-----------greedy algorithm---------"<<std::endl;
+    generate_method();
+    best_ship_rule = ship_rule;
+    best_cargo_rule = cargo_rule;
+    finish_work();
+}
