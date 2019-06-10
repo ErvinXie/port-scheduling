@@ -13,6 +13,7 @@ void greedy_worker::generate_method() {
         return (a->out_port_time+a->out_port_time)<(b->in_port_time+b->out_port_time);
     });
     cargo_rule.clear();
+
     std::for_each(ship_rule.begin(),ship_rule.end(),[this](ship*this_ship){
         //sort by the lift time of a cargo
         std::sort(this_ship->cargoes.begin(),this_ship->cargoes.end(),[](cargo*a,cargo*b)->bool{
@@ -31,5 +32,6 @@ void greedy_worker::work() {
     generate_method();
     best_ship_rule = ship_rule;
     best_cargo_rule = cargo_rule;
+    best_transport_rule = transport_rule;
     finish_work();
 }

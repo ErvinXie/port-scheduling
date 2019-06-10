@@ -16,7 +16,7 @@ public:
 
     //parameters of pso
     double inertial_weight = 1;
-    double alpha=0.8;
+    double alpha = 0.8;
 
     double c1 = 2;//personal effects
     double c2 = 2;//group effects
@@ -38,6 +38,7 @@ public:
 
 private:
     void get_first_generation();
+
     void get_fit_score();
 
 };

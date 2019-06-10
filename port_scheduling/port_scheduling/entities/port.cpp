@@ -27,9 +27,13 @@ port::~port() {
     }
     delete this;
 }
+
 //Different log level signifies different logs.
 //when log level = 0, there is completely no logs.
-int port::simulate(std::vector<ship *> &ship_rule, std::vector<cargo *> &cargo_rule, int log_level) {
+int port::simulate_greedy(std::vector<ship *> &ship_rule,
+                          std::vector<cargo *> &cargo_rule,
+                          std::vector<cargo *> &transport_rule,
+                          int log_level) {
 
     int ship_now = 0;
 
@@ -37,9 +41,17 @@ int port::simulate(std::vector<ship *> &ship_rule, std::vector<cargo *> &cargo_r
     for (int i = 0; i < cargo_rule.size(); i++) {
         cargo_lifted[i] = 0;
     }
-    if(log_level>=2){
-        lift_order.clear();
+    bool *cargo_transported = new bool[transport_rule.size()];
+    for (int i = 0; i < transport_rule.size(); i++) {
+        cargo_transported[i] = 0;
     }
+
+
+    if (log_level >= 2) {
+        lift_order.clear();
+        transport_order.clear();
+    }
+
 
     int time_now = 0;
 
@@ -162,28 +174,40 @@ int port::simulate(std::vector<ship *> &ship_rule, std::vector<cargo *> &cargo_r
         //cargo transport
         //if there are idling vehicle and available cargo, move it to the store
         while (vehicle_num && cargoes_in_buffer.size()) {
-            cargo *this_cargo = (*cargoes_in_buffer.begin());
+            //find an available cargo
+            cargo *this_cargo = nullptr;
+            for (int i = 0; i < transport_rule.size(); i++) {
+                if (cargo_transported[i] == 0 && cargoes_in_buffer.count(transport_rule[i])) {
+                    this_cargo = transport_rule[i];
+                    cargo_transported[i] = 1;
+                    break;
+                }
+            }
+            //if no available cargo was find
+            if (this_cargo == nullptr) {
+                break;
+            }
             //remove the cargo from the buffer
             cargoes_in_buffer.erase(this_cargo);
             vehicle_num--;
-            if (log_level >= 3) {
+
+            if (log_level >= 2) {
+                transport_order.push_back(this_cargo);
                 std::cout << "----time[" << time_now << "]\t"
                           << this_cargo->get_name()
                           << "\tstart transport "
-
                           << "to store "
                           << this_cargo->target_store_id
                           << std::endl;
             }
 
             //set the event when the transport is finished
-            const int arrival_time = time_now + transport_time;
+            const int arrival_time = time_now + transport_time[this_cargo->target_store_id];
             request_queue.push(new request(arrival_time, [=, this]() {
                 if (log_level >= 4) {
                     std::cout << "----time[" << arrival_time << "]\t"
                               << this_cargo->get_name()
                               << "\ttransported "
-
                               << " to store "
                               << this_cargo->target_store_id
                               << std::endl;
@@ -191,7 +215,7 @@ int port::simulate(std::vector<ship *> &ship_rule, std::vector<cargo *> &cargo_r
                 cargoes_in_store.insert(this_cargo);
 
 
-                const int back_time = arrival_time + transport_time;
+                const int back_time = arrival_time + transport_time[this_cargo->target_store_id];
                 request_queue.push(new request(back_time, [=, this]() {
                     vehicle_num++;
 
@@ -199,7 +223,6 @@ int port::simulate(std::vector<ship *> &ship_rule, std::vector<cargo *> &cargo_r
                         std::cout << "----time[" << back_time << "]\t"
                                   << this_cargo->get_name()
                                   << "\ttransported "
-
                                   << " to store "
                                   << this_cargo->target_store_id
                                   << " and came back"
@@ -218,10 +241,14 @@ int port::simulate(std::vector<ship *> &ship_rule, std::vector<cargo *> &cargo_r
     //because the cargo rule is a priority rule,
     //the lift order is much more valuable,
     //so we need this
-    if(log_level>=2){
-        std::cout<<"Lift Order:"<<std::endl;
-        for(int i=0;i<lift_order.size();i++){
-            std::cout<<lift_order[i]->get_name()<<std::endl;
+    if (log_level >= 2) {
+        std::cout << "Lift Order:" << std::endl;
+        for (int i = 0; i < lift_order.size(); i++) {
+            std::cout << lift_order[i]->get_name() << std::endl;
+        }
+        std::cout << "Transport Order:" << std::endl;
+        for (int i = 0; i < transport_order.size(); i++) {
+            std::cout << transport_order[i]->get_name() << std::endl;
         }
     }
 
@@ -231,15 +258,13 @@ int port::simulate(std::vector<ship *> &ship_rule, std::vector<cargo *> &cargo_r
     std::for_each(ship_rule.begin(), ship_rule.end(), [](ship *this_ship) {
         this_ship->on_deck_cargoes_num = this_ship->cargoes.size();
     });
-
-
     return time_now;
 }
+
 
 port::port(int deckNum, int liftNum, int vehicleNum, int storeNum, int transportTime) : deck_num(deckNum),
                                                                                         lift_num(liftNum),
                                                                                         vehicle_num(vehicleNum),
-                                                                                        store_num(storeNum),
-                                                                                        transport_time(transportTime) {}
+                                                                                        store_num(storeNum) {}
 
 request::request(int time, const std::function<void()> &work) : time(time), work(work) {}

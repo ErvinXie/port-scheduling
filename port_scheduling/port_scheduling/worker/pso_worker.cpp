@@ -29,7 +29,7 @@ void pso_worker::work() {
 
         //update velocity
         for (int i = 0; i < population; i++) {
-            for (int j = 0; j < cargo_rule.size(); j++) {
+            for (int j = 0; j < cargo_rule.size()+transport_rule.size(); j++) {
                 velocity[i][j] = velocity[i][j] * inertial_weight
                                  + c1 * RAND(0, 2) * (personal_best_position[i][j] - position[i][j])
                                  + c2 * RAND(0, 2) * (global_best_position[j] - position[i][j]);
@@ -37,7 +37,7 @@ void pso_worker::work() {
         }
         //update position
         for (int i = 0; i < population; i++) {
-            for (int j = 0; j < cargo_rule.size(); j++) {
+            for (int j = 0; j < cargo_rule.size()+transport_rule.size(); j++) {
                 position[i][j] = position[i][j] + velocity[i][j];
             }
         }
@@ -54,7 +54,7 @@ void pso_worker::get_first_generation() {
     for (int i = 0; i < population; i++) {
         std::vector<double> p;
         std::vector<double> v;
-        for (int j = 0; j < cargo_rule.size(); j++) {
+        for (int j = 0; j < cargo_rule.size()+transport_rule.size(); j++) {
             //make the initial value restricted
             p.push_back(RAND(0, velocity_max));
             v.push_back(RAND(velocity_min, velocity_max));
@@ -77,16 +77,32 @@ void pso_worker::get_fit_score() {
         for (int j = 0; j < cargo_rule.size(); j++) {
             p_to_id.push_back(std::make_pair(position[i][j], j));
         }
+
         std::sort(p_to_id.begin(), p_to_id.end());
+
         std::vector<cargo *> this_cargo_rule;
+
         for (int i = 0; i < cargo_rule.size(); i++) {
             this_cargo_rule.push_back(cargo_rule[p_to_id[i].second]);
         }
+
+
+        p_to_id.clear();
+        for (int j = 0; j < transport_rule.size(); j++) {
+            p_to_id.push_back(std::make_pair(position[i][cargo_rule.size()+j], j));
+        }
+        std::sort(p_to_id.begin(), p_to_id.end());
+        std::vector<cargo *> this_transport_rule;
+        for (int i = 0; i < cargo_rule.size(); i++) {
+            this_transport_rule.push_back(transport_rule[p_to_id[i].second]);
+        }
+
+
         //simulate for the time
         std::sort(ship_rule.begin(), ship_rule.end());
         int this_best_time = 0x3f3f3f3f;
         while (std::next_permutation(ship_rule.begin(), ship_rule.end())) {
-            int time = port1->simulate(ship_rule, this_cargo_rule);
+            int time = port1->simulate_greedy(ship_rule, this_cargo_rule,this_transport_rule);
             if (time < this_best_time) {
                 this_best_time = time;
             }
@@ -95,6 +111,7 @@ void pso_worker::get_fit_score() {
                 debug_out=1;
                 best_time = time;
                 best_cargo_rule = this_cargo_rule;
+                best_transport_rule = this_transport_rule;
                 best_ship_rule = ship_rule;
                 global_best_position = position[i];
             }
@@ -119,7 +136,7 @@ void pso_worker::get_fit_score() {
 
     if (debug && debug_out) {
         std::cout << "The best schedule is:";
-        port1->simulate(best_ship_rule, best_cargo_rule, 10);
+        port1->simulate_greedy(best_ship_rule, best_cargo_rule,best_transport_rule,10);
         std::cout << "\n";
         std::cout << "The best ship rule is:\n";
         for (int i = 0; i < best_ship_rule.size(); i++) {

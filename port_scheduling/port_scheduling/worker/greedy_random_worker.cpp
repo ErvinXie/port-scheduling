@@ -2,12 +2,12 @@
 // Created by 谢威宇 on 2019-06-07.
 //
 
-#include "random_worker.h"
+#include "greedy_random_worker.h"
 #include <random>
 #include <ctime>
-random_worker::random_worker(port *port1) : brute_force_worker(port1) {}
+greedy_random_worker::greedy_random_worker(port *port1) : brute_force_worker(port1) {}
 
-void random_worker::work(long long int limit) {
+void greedy_random_worker::work(long long int limit) {
     //try every possible way
     std::cout<<"-----------random algorithm---------"<<std::endl;
     std::cout << "Total:" << limit << " ways will be tried" << std::endl;
@@ -15,8 +15,9 @@ void random_worker::work(long long int limit) {
     unsigned seed = time(nullptr);
     while (now < limit ) {
         std::shuffle(cargo_rule.begin(), cargo_rule.end(),std::default_random_engine (seed));
+        std::shuffle(transport_rule.begin(), transport_rule.end(),std::default_random_engine (seed));
         while (std::next_permutation(ship_rule.begin(), ship_rule.end())) {
-            int time = port1->simulate(ship_rule, cargo_rule);
+            int time = port1->simulate_greedy(ship_rule, cargo_rule,transport_rule);
             //statistics about the time distribution
             time_distribute[time]++;
             if (time < best_time) {

@@ -14,4 +14,4 @@ add_executable(port_scheduling
         entities/ship.cpp
         entities/ship.h
         main.cpp
-        worker/worker_base.cpp worker/worker_base.h worker/greedy_worker.cpp worker/greedy_worker.h worker/brute_force_worker.cpp worker/brute_force_worker.h worker/random_worker.cpp worker/random_worker.h worker/genetic_worker.cpp worker/genetic_worker.h worker/pso_worker.cpp worker/pso_worker.h)
+        worker/worker_base.cpp worker/worker_base.h worker/greedy_worker.cpp worker/greedy_worker.h worker/brute_force_worker.cpp worker/brute_force_worker.h worker/greedy_random_worker.cpp worker/greedy_random_worker.h worker/genetic_worker.cpp worker/genetic_worker.h worker/pso_worker.cpp worker/pso_worker.h)

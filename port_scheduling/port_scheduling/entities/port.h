@@ -40,18 +40,17 @@ public:
     int vehicle_num;
     int store_num;
 
-    int transport_time;
+    int transport_time[10] = {};
 
     std::vector<ship *> ships;
 
     //working attributes
     std::set<ship *> ships_in_deck;
 
-    std::set<cargo *>cargoes_on_deck;
+    std::set<cargo *> cargoes_on_deck;
     std::set<cargo *> cargoes_in_buffer;
     std::set<cargo *> cargoes_in_store;
-    std::priority_queue<request *, std::vector<request *>,request_compare> request_queue;
-
+    std::priority_queue<request *, std::vector<request *>, request_compare> request_queue;
 
 
     //Methods
@@ -64,12 +63,15 @@ public:
 
     void load_ship(ship *tship);
 
-    int simulate(std::vector<ship *> &, std::vector<cargo *> &,int log_level=0);
+    int simulate(std::vector<cargo *> &, std::vector<cargo *> &, int log_level = 0);
+
+    int simulate_greedy(std::vector<ship *> &, std::vector<cargo *> &, std::vector<cargo *> &, int log_level = 0);
 
     //Debug Methods
     void info();
 
-    std::vector<cargo*> lift_order;
+    std::vector<cargo *> lift_order;
+    std::vector<cargo *> transport_order;
 
 };
 

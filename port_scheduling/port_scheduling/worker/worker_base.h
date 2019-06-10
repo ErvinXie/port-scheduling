@@ -10,16 +10,19 @@
 
 class worker_base {
 public:
-    std::vector<ship*> ship_rule;
-    std::vector<cargo*> cargo_rule;
+    std::vector<ship *> ship_rule;
+    std::vector<cargo *> cargo_rule;
+    std::vector<cargo *> transport_rule;
 
-    port* port1;
-    int best_time=0x3f3f3f3f;
+    port *port1;
+    int best_time = 0x3f3f3f3f;
 
     int debug = 0;
 
-    std::vector<cargo*> best_cargo_rule;
-    std::vector<ship*> best_ship_rule;
+    std::vector<ship *> best_ship_rule;
+    std::vector<cargo *> best_cargo_rule;
+    std::vector<cargo *> best_transport_rule;
+
 
     worker_base(port *port1);
 
@@ -30,12 +33,7 @@ public:
     virtual void finish_work();
 
 
-
-
 };
-
-
-
 
 
 #endif //PORT_SCHEDULING_WORKER_BASE_H

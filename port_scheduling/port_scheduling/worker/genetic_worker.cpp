@@ -203,7 +203,8 @@ void genetic_worker::get_fit_score() {
         std::sort(ship_rule.begin(), ship_rule.end());
         int this_best_time = 0x3f3f3f3f;
         while (std::next_permutation(ship_rule.begin(), ship_rule.end())) {
-            int time = port1->simulate(ship_rule, group[i]);
+            //to be changed
+            int time = port1->simulate_greedy(ship_rule, group[i],transport_rule);
             if (time < this_best_time) {
                 this_best_time = time;
             }
@@ -232,7 +233,7 @@ void genetic_worker::get_fit_score() {
               << std::endl;
     if (debug&&min_time <= best_time) {
         std::cout << "The best schedule is:";
-        port1->simulate(best_ship_rule, best_cargo_rule, 10);
+        port1->simulate_greedy(best_ship_rule, best_cargo_rule, best_transport_rule,10);
         std::cout << "\n";
         std::cout << "The best ship rule is:\n";
         for (int i = 0; i < best_ship_rule.size(); i++) {

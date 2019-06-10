@@ -16,7 +16,7 @@ void brute_force_worker::work(long long limit) {
     //try every possible way
     while (now<limit&&std::next_permutation(cargo_rule.begin(), cargo_rule.end())) {
         while (std::next_permutation(ship_rule.begin(), ship_rule.end())) {
-            int time = port1->simulate(ship_rule, cargo_rule);
+            int time = port1->simulate_greedy(ship_rule, cargo_rule,transport_rule);
             //statistics about the time distribution
             time_distribute[time]++;
             if(time<best_time){
