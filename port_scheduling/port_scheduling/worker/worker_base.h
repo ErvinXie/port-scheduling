@@ -7,6 +7,7 @@
 
 #include <vector>
 #include "port.h"
+#include "time.h"
 
 class worker_base {
 public:
@@ -22,6 +23,8 @@ public:
     std::vector<ship *> best_ship_rule;
     std::vector<cargo *> best_cargo_rule;
     std::vector<cargo *> best_transport_rule;
+
+    clock_t startTime,endTime;
 
 
     worker_base(port *port1);

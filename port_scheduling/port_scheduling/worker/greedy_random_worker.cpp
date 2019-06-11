@@ -23,6 +23,7 @@ void greedy_random_worker::work(long long int limit) {
             if (time < best_time) {
                 best_time = time;
                 best_cargo_rule = cargo_rule;
+                best_transport_rule = transport_rule;
                 best_ship_rule = ship_rule;
             }
         }

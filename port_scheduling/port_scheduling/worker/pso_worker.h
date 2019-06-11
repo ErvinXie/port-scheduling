@@ -16,7 +16,7 @@ public:
 
     //parameters of pso
     double inertial_weight = 1;
-    double alpha = 0.8;
+    double alpha = 1;
 
     double c1 = 2;//personal effects
     double c2 = 2;//cargo_rule_group effects

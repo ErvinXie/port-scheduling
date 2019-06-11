@@ -15,8 +15,22 @@
 #include "entities/ship.h"
 #include "worker/worker_base.h"
 #include "port.h"
-
+void temp_tool(){
+    std::string a,la;
+    int b,lb;
+    while (std::cin>>a>>b) {
+        if(a==la){
+            std::cout<<" \t"<<b-lb;
+        }else{
+            std::cout<<std::endl<<a<<" \t"<<b;
+        }
+        la=a;
+        lb=b;
+    }
+}
 int main(int argc, const char *argv[]) {
+//    temporary function for data analysis
+//    temp_tool();
 
     std::cout <<
               "enter the port information:\n"
@@ -55,8 +69,8 @@ int main(int argc, const char *argv[]) {
     }
 
     //set the transport time
-    port1->transport_time[1] = 8;
-    port1->transport_time[2] = 10;
+    port1->transport_time[1] = 11;
+    port1->transport_time[2] = 8;
     port1->transport_time[3] = 12;
 //
 //    port1->info();
@@ -85,15 +99,12 @@ int main(int argc, const char *argv[]) {
     greedyWorker->work();
 
 
-
-//
-
 //    brute_force_worker* bruteForceWorker = new brute_force_worker(port1);
-//    bruteForceWorker->work(1e3);
+//    bruteForceWorker->work(100);
 
 
     greedy_random_worker* randomWorker = new greedy_random_worker(port1);
-    randomWorker->work(1000);
+    randomWorker->work(100);
 
     pso_worker *psoWorker = new pso_worker(port1);
     psoWorker->population = 1000;
@@ -104,17 +115,14 @@ int main(int argc, const char *argv[]) {
     psoWorker->work();
     delete psoWorker;
 
-
-
     genetic_worker* geneticWorker = new genetic_worker(port1);
-    geneticWorker->max_generation = 100;
-    geneticWorker->population = 1000;
+    geneticWorker->max_generation = 1000;
+    geneticWorker->population = 100;
     geneticWorker->debug=0;
     geneticWorker->work();
     delete geneticWorker;
 
-
-
-
     return 0;
 }
+
+

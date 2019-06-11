@@ -17,6 +17,8 @@ public:
     double migrant_possibility = 0;
     double mutant_possibility = 0.05;
 
+    double reserve_ration = 0.1;
+
 
     std::vector<std::vector<cargo *>> cargo_rule_group;
     std::vector<std::vector<cargo *>> transport_rule_group;

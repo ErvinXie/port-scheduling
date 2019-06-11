@@ -352,7 +352,7 @@ void genetic_worker::get_fit_score() {
     //compute a new score
     double total = 0;
 
-    int selected_num = population * 0.05;
+    int selected_num = population * reserve_ration;
     double setted_score = score_to_id[population - 1].first;
     for (int i = 0; i < score_to_id.size(); i++) {
         if (i < selected_num) {

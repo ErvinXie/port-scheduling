@@ -72,7 +72,7 @@ int port::simulate_greedy(std::vector<ship *> &ship_rule,
             deck_num--;
 
             if (log_level >= 2) {
-                std::cout << "----time[" << time_now << "]\t"
+                std::cout << "----time:\t" << time_now << "\t"
                           << this_ship->get_name()
                           << "\tdecking"
                           << std::endl;
@@ -91,7 +91,7 @@ int port::simulate_greedy(std::vector<ship *> &ship_rule,
 
                 if (log_level >= 2) {
                     //log the information
-                    std::cout << "----time[" << finish_time << "]\t"
+                    std::cout << "----time:\t" << finish_time << "\t"
                               << this_ship->get_name()
                               << "\tdecked"
                               << std::endl;
@@ -122,7 +122,7 @@ int port::simulate_greedy(std::vector<ship *> &ship_rule,
             lift_order.push_back(this_cargo);
             if (log_level >= 2) {
 
-                std::cout << "----time[" << time_now << "]\t"
+                std::cout << "----time:\t" << time_now << "\t"
                           << this_cargo->get_name()
                           << "\tlifting "
                           << std::endl;
@@ -139,7 +139,7 @@ int port::simulate_greedy(std::vector<ship *> &ship_rule,
                 this_cargo->parent_ship->on_deck_cargoes_num--;
                 cargoes_in_buffer.insert(this_cargo);
                 if (log_level >= 3) {
-                    std::cout << "----time[" << finish_time << "]\t"
+                    std::cout << "----time:\t" << finish_time << "\t"
                               << this_cargo->get_name()
                               << "\tlifted"
                               << std::endl;
@@ -149,7 +149,7 @@ int port::simulate_greedy(std::vector<ship *> &ship_rule,
                 if (this_ship->on_deck_cargoes_num == 0) {
 
                     if (log_level >= 2) {
-                        std::cout << "----time[" << finish_time << "]\t"
+                        std::cout << "----time:\t" << finish_time << "\t"
                                   << this_ship->get_name()
                                   << "\tstart to leave"
                                   << std::endl;
@@ -161,7 +161,7 @@ int port::simulate_greedy(std::vector<ship *> &ship_rule,
                         deck_num++;
                         ships_in_deck.erase(this_ship);
                         if (log_level >= 2) {
-                            std::cout << "----time[" << leave_finish_time << "]\t"
+                            std::cout << "----time:\t" << leave_finish_time << "\t"
                                       << this_ship->get_name()
                                       << "\thas left the deck"
                                       << std::endl;
@@ -192,7 +192,7 @@ int port::simulate_greedy(std::vector<ship *> &ship_rule,
             vehicle_num--;
             transport_order.push_back(this_cargo);
             if (log_level >= 2) {
-                std::cout << "----time[" << time_now << "]\t"
+                std::cout << "----time:\t" << time_now << "\t"
                           << this_cargo->get_name()
                           << "\tstart transport "
                           << "to store "
@@ -204,7 +204,7 @@ int port::simulate_greedy(std::vector<ship *> &ship_rule,
             const int arrival_time = time_now + transport_time[this_cargo->target_store_id];
             request_queue.push(new request(arrival_time, [=, this]() {
                 if (log_level >= 4) {
-                    std::cout << "----time[" << arrival_time << "]\t"
+                    std::cout << "----time:\t" << arrival_time << "\t"
                               << this_cargo->get_name()
                               << "\ttransported "
                               << " to store "
@@ -219,7 +219,7 @@ int port::simulate_greedy(std::vector<ship *> &ship_rule,
                     vehicle_num++;
 
                     if (log_level >= 5) {
-                        std::cout << "----time[" << back_time << "]\t"
+                        std::cout << "----time:\t" << back_time << "\t"
                                   << this_cargo->get_name()
                                   << "\ttransported "
                                   << " to store "
@@ -303,7 +303,7 @@ port::simulate(std::vector<ship *> &ship_rule, std::vector<cargo *> &cargo_rule,
             deck_num--;
 
             if (log_level >= 2) {
-                std::cout << "----time[" << time_now << "]\t"
+                std::cout << "----time:\t" << time_now << "\t"
                           << this_ship->get_name()
                           << "\tdecking"
                           << std::endl;
@@ -321,7 +321,7 @@ port::simulate(std::vector<ship *> &ship_rule, std::vector<cargo *> &cargo_rule,
                               });
                 if (log_level >= 2) {
                     //log the information
-                    std::cout << "----time[" << finish_time << "]\t"
+                    std::cout << "----time:\t" << finish_time << "\t"
                               << this_ship->get_name()
                               << "\tdecked"
                               << std::endl;
@@ -345,7 +345,7 @@ port::simulate(std::vector<ship *> &ship_rule, std::vector<cargo *> &cargo_rule,
             cargoes_on_deck.erase(this_cargo);
             if (log_level >= 2) {
                 lift_order.push_back(this_cargo);
-                std::cout << "----time[" << time_now << "]\t"
+                std::cout << "----time:\t" << time_now << "\t"
                           << this_cargo->get_name()
                           << "\tlifting "
                           << std::endl;
@@ -362,7 +362,7 @@ port::simulate(std::vector<ship *> &ship_rule, std::vector<cargo *> &cargo_rule,
                 this_cargo->parent_ship->on_deck_cargoes_num--;
                 cargoes_in_buffer.insert(this_cargo);
                 if (log_level >= 3) {
-                    std::cout << "----time[" << finish_time << "]\t"
+                    std::cout << "----time:\t" << finish_time << "\t"
                               << this_cargo->get_name()
                               << "\tlifted"
                               << std::endl;
@@ -372,7 +372,7 @@ port::simulate(std::vector<ship *> &ship_rule, std::vector<cargo *> &cargo_rule,
                 if (this_ship->on_deck_cargoes_num == 0) {
 
                     if (log_level >= 2) {
-                        std::cout << "----time[" << finish_time << "]\t"
+                        std::cout << "----time:\t" << finish_time << "\t"
                                   << this_ship->get_name()
                                   << "\tstart to leave"
                                   << std::endl;
@@ -384,7 +384,7 @@ port::simulate(std::vector<ship *> &ship_rule, std::vector<cargo *> &cargo_rule,
                         deck_num++;
                         ships_in_deck.erase(this_ship);
                         if (log_level >= 2) {
-                            std::cout << "----time[" << leave_finish_time << "]\t"
+                            std::cout << "----time:\t" << leave_finish_time << "\t"
                                       << this_ship->get_name()
                                       << "\thas left the deck"
                                       << std::endl;
@@ -412,7 +412,7 @@ port::simulate(std::vector<ship *> &ship_rule, std::vector<cargo *> &cargo_rule,
 
             if (log_level >= 2) {
                 transport_order.push_back(this_cargo);
-                std::cout << "----time[" << time_now << "]\t"
+                std::cout << "----time:\t" << time_now << "\t"
                           << this_cargo->get_name()
                           << "\tstart transport "
                           << "to store "
@@ -424,7 +424,7 @@ port::simulate(std::vector<ship *> &ship_rule, std::vector<cargo *> &cargo_rule,
             const int arrival_time = time_now + transport_time[this_cargo->target_store_id];
             request_queue.push(new request(arrival_time, [=, this]() {
                 if (log_level >= 4) {
-                    std::cout << "----time[" << arrival_time << "]\t"
+                    std::cout << "----time:\t" << arrival_time << "\t"
                               << this_cargo->get_name()
                               << "\ttransported "
                               << " to store "
@@ -438,7 +438,7 @@ port::simulate(std::vector<ship *> &ship_rule, std::vector<cargo *> &cargo_rule,
                 request_queue.push(new request(back_time, [=, this]() {
                     vehicle_num++;
                     if (log_level >= 5) {
-                        std::cout << "----time[" << back_time << "]\t"
+                        std::cout << "----time:\t" << back_time << "\t"
                                   << this_cargo->get_name()
                                   << "\ttransported "
                                   << " to store "
