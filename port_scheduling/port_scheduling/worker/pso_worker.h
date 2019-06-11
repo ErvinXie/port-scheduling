@@ -19,10 +19,12 @@ public:
     double alpha = 0.8;
 
     double c1 = 2;//personal effects
-    double c2 = 2;//group effects
+    double c2 = 2;//cargo_rule_group effects
 
     int population = 100;
     int max_generation = 100;
+
+    int greedy=0;
 
     std::vector<std::vector<double>> position;
     std::vector<int> personal_best_time;

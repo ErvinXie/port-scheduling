@@ -63,12 +63,15 @@ public:
 
     void load_ship(ship *tship);
 
-    int simulate(std::vector<cargo *> &, std::vector<cargo *> &, int log_level = 0);
+    int simulate(std::vector<ship *> &ship_rule, std::vector<cargo *> &cargo_rule,
+                 std::vector<cargo *> &transport_rule, int log_level = 0);
 
-    int simulate_greedy(std::vector<ship *> &, std::vector<cargo *> &, std::vector<cargo *> &, int log_level = 0);
+    int simulate_greedy(std::vector<ship *> &ship_rule, std::vector<cargo *> &cargo_rule,
+                        std::vector<cargo *> &transport_rule, int log_level = 0);
 
     //Debug Methods
     void info();
+
 
     std::vector<cargo *> lift_order;
     std::vector<cargo *> transport_order;

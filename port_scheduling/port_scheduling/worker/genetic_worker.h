@@ -18,7 +18,8 @@ public:
     double mutant_possibility = 0.05;
 
 
-    std::vector<std::vector<cargo *>> group;
+    std::vector<std::vector<cargo *>> cargo_rule_group;
+    std::vector<std::vector<cargo *>> transport_rule_group;
     std::vector<double> fit_score;
     std::vector<double> fit_score_presum;
 

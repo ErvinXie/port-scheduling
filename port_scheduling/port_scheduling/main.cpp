@@ -53,43 +53,65 @@ int main(int argc, const char *argv[]) {
             tship->load_cargo(new cargo(i * 100 + j, ts, lt));
         }
     }
-    port1->transport_time[1] = 11;
-    port1->transport_time[2] = 8;
+
+    //set the transport time
+    port1->transport_time[1] = 8;
+    port1->transport_time[2] = 10;
     port1->transport_time[3] = 12;
+//
 //    port1->info();
 //
-    worker_base *workerBase = new worker_base(port1);
-    workerBase->work();
 
-//    greedy_worker* greedyWorker = new greedy_worker(port1);
-//    greedyWorker->work();
+//    worker_base *workerBase = new worker_base(port1);
+//    std::vector<ship*> new_ship_rule;
+//    std::vector<cargo*> new_cargo_rule;
+//    int shipp[]={2,3,4,1};
+//    int cargoo[]={5,13,4,17,3,10,15,7,12, 2, 16, 6, 1, 19, 9, 14, 18, 8, 11};
+//    for(int i=0;i<4;i++){
+//        new_ship_rule.push_back(workerBase->ship_rule[shipp[i]-1]);
+//    }
+//    for(int i=0;i<19;i++){
+//        new_cargo_rule.push_back(workerBase->cargo_rule[cargoo[i]-1]);
+//    }
+//    workerBase->ship_rule = new_ship_rule;
+//    workerBase->cargo_rule = new_cargo_rule;
+//    workerBase->transport_rule = new_cargo_rule;
+//    workerBase->work();
+
+
 //
+
+    greedy_worker *greedyWorker = new greedy_worker(port1);
+    greedyWorker->work();
+
+
+
+//
+
 //    brute_force_worker* bruteForceWorker = new brute_force_worker(port1);
 //    bruteForceWorker->work(1e3);
-//
-//    greedy_random_worker* randomWorker = new greedy_random_worker(port1);
-//    randomWorker->work(1e3);
-
-    //adjustment the parameters
 
 
+    greedy_random_worker* randomWorker = new greedy_random_worker(port1);
+    randomWorker->work(1000);
 
-    //solve the problem
-//
     pso_worker *psoWorker = new pso_worker(port1);
     psoWorker->population = 1000;
     psoWorker->alpha = 1;
-    psoWorker->debug = 1;
-    psoWorker->max_generation = 100;
+    psoWorker->debug = 0;
+    psoWorker->max_generation = 10;
+    psoWorker->greedy=1;
     psoWorker->work();
     delete psoWorker;
 
 
 
-//    genetic_worker* geneticWorker = new genetic_worker(port1);
-//    geneticWorker->max_generation = 10;
-//    geneticWorker->work();
-//    delete geneticWorker;
+    genetic_worker* geneticWorker = new genetic_worker(port1);
+    geneticWorker->max_generation = 100;
+    geneticWorker->population = 1000;
+    geneticWorker->debug=0;
+    geneticWorker->work();
+    delete geneticWorker;
 
 
 

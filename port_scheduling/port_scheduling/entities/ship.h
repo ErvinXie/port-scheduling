@@ -14,6 +14,7 @@
 #include <map>
 #include <iostream>
 #include "cargo.h"
+class port;
 
 class ship {
 public:
@@ -24,6 +25,9 @@ public:
     std::vector<cargo *> cargoes;
 
     int on_deck_cargoes_num=0;
+
+    port* parent_port;
+
 //Computing Methods
     ship() {}
 

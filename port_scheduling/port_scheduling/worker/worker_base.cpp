@@ -18,9 +18,6 @@ worker_base::worker_base(port *port1) : port1(port1) {
 }
 
 void worker_base::work() {
-    //get the method
-    generate_method();
-
 
     int time = port1->simulate_greedy(ship_rule, cargo_rule,transport_rule ,10);
     best_time = std::min(best_time, time);
